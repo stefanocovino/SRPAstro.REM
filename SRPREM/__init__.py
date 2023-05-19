@@ -2,9 +2,9 @@
 
 Context : SRP
 Module  : REM
-Version : 1.0.56
+Version : 1.0.57
 Author  : Stefano Covino
-Date    : 10/03/2022
+Date    : 19/05/2023
 E-mail  : stefano.covino@inaf.it
 URL     : http://www.me.oa-brera.inaf.it/utenti/covino
 
@@ -66,9 +66,10 @@ History : (16/12/2011) First version.
         : (07/03/2020) V. 2.2.1.
 		: (12/05/2021) V. 2.3.0.
         : (10/03/2022) V. 2.3.1.
+        : (19/05/2023) V. 2.3.2.
 """
 
-__version__ = '2.3.1'
+__version__ = '2.3.2'
 
 
 

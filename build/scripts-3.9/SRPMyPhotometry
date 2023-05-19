@@ -4,7 +4,7 @@
 Context : SRP
 Module  : SRPMyPhotometry.py
 Author  : Stefano Covino
-Date    : 10/03/2022
+Date    : 19/05/2023
 E-mail  : stefano.covino@inaf.it
 URL:    : http://www.merate.mi.astro.it/utenti/covino
 Purpose : Manage the photometry of FITS files.
@@ -44,10 +44,11 @@ History : (19/12/2008) First version.
         : (07/08/2011) Better cosmetics.
         : (01/08/2012) Better formatted output for text only files.
         : (25/07/2014) More information readable bya  pipe.
-        : (28/07/2014) In case of -S option the simple output is always generated. 
+        : (28/07/2014) In case of -S option the simple output is always generated.
         : (14/02/2017) Python3 porting.
         : (10/11/2017) Bug correction.
         : (04/06/2019) astropy photometry.
+        : (19/05/2023) Bug correction in minmax.
 """
 
 
@@ -63,7 +64,7 @@ from SRPFITS.Photometry.Counts2Mag import Counts2Mag
 from SRPFITS.Photometry.MinMax import MinMax
 
 
-parser = OptionParser(usage="usage: %prog [-a arg1 arg2] [-e arg3] -f arg4 [-g arg5] [-h] [-H arg6, arg7] -i arg8 [-n arg9 [-r arg10 arg11 arg12] [-s arg13] [-t] [-S] [-v] [-z arg14 arg15]", version="%prog 2.0.2")
+parser = OptionParser(usage="usage: %prog [-a arg1 arg2] [-e arg3] -f arg4 [-g arg5] [-h] [-H arg6, arg7] -i arg8 [-n arg9 [-r arg10 arg11 arg12] [-s arg13] [-t] [-S] [-v] [-z arg14 arg15]", version="%prog 2.0.3")
 parser.add_option("-a", "--airmass", action="store", nargs=2, type="float", dest="airm", help="Observation airmass and coefficient")
 parser.add_option("-f", "--fitsfile", action="store", nargs=1, type="string", dest="fitsfile", help="Input FITS file")
 parser.add_option("-v", "--verbose", action="store_true", dest="verbose", help="Fully describe operations")
@@ -203,7 +204,7 @@ if options.fitsfile and options.inpfile:
             else:
                 xc,yc = SRPAstro.centerMoment(table,i[1],i[2],Radius[0])
             fl, efl = ApyPhot([xc],[yc],table,Radius,gain=Gain,ron=Ron)
-            minmax = MinMax(table,x,y,Radius[0])
+            minmax = MinMax(table,xc,yc,Radius[0])
             #totf,npix,maxf = SRPAstro.sumApert(table,xc,yc,Radius[0])
             bg,sbg,ebg,chbg,nbg = SRPAstro.getBackground(table,xc,yc,Radius[1],Radius[2])
             mag,emag = Counts2Mag(fl,efl)
